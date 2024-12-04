@@ -1,0 +1,11 @@
+---
+- name: Ensure sshd is enabled
+  service:
+    name: sshd
+    state: restarted
+    enabled: yes
+
+- name: Set MOTD
+  lineinfile:
+    path: /etc/motd
+    line: "Ansible Managed by {{ansible_user}}"

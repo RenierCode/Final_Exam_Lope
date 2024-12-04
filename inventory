@@ -1,0 +1,5 @@
+[debian_server]
+server1  ansible_user=rnrlope
+
+[centos_server]
+centOS   ansible_user=rnrlope

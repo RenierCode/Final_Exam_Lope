@@ -1,0 +1,38 @@
+---
+- name: Install Docker (CentOS)
+  dnf:
+    name: docker
+    state: latest
+  when: ansible_distribution == "CentOS"
+
+- name: Install Docker (Ubuntu)
+  apt:
+    name: docker.io
+    state: latest
+  when: ansible_distribution == "Ubuntu"
+
+- name: Start Docker Service
+  service:
+    name: docker
+    state: restarted
+    enabled: yes
+
+- name: Add docker group to current user
+  group:
+    name: docker
+    state: present
+
+- name: Add user to docker group
+  user:
+    name: rnrlope
+    groups: docker
+    append: yes
+
+- name: change permission of docker.sock
+  file:
+    path: /var/run/docker.sock
+    state: file
+    owner: root
+    group: docker
+    mode: "666"
+
